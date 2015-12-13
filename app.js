@@ -65,7 +65,7 @@ function startSpy(){
     ildar = 30634464,
       spy = new Spy(config.get('twitter'), jon);
 
-      //spy.start();
+      spy.start();
 }
 
 startSpy();
