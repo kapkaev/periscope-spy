@@ -1,19 +1,17 @@
 var Promise = require("bluebird"),
     Datastore = require('nedb'),
-    broadcastDbFile = process.cwd() + '/db/broadcast.db',
-    broadcastDb = new Datastore({ filename: broadcastDbFile, autoload: true }),
     EventDbFile = process.cwd() + '/db/event.db',
     eventDb = new Datastore({ filename: EventDbFile, autoload: true }),
     _ = Promise.promisifyAll(require('underscore-node'));
 
-function DataPresentor(){
+function EventDataProvider(){
 
 }
 
-DataPresentor.broadcasts = function(){
+EventDataProvider.broadcasts = function(){
   var scope = this;
 
-  return DataPresentor.find({}).then(function(records) {
+  return EventDataProvider.find({}).then(function(records) {
     scope.broadcasts_data = records;
     return _.map(records, function(record){
       return {id: record._id, url: record.url}
@@ -22,17 +20,17 @@ DataPresentor.broadcasts = function(){
 };
 
 
-DataPresentor.broadcast = function(id){
+EventDataProvider.broadcast = function(id){
   var scope = this;
 
-  return DataPresentor.find({_id: id}).then(function(record) {
+  return EventDataProvider.find({_id: id}).then(function(record) {
     var streamId = record.streamId;
     return record;
   })
 };
 
 
-DataPresentor.find = function(params){
+EventDataProvider.find = function(params){
   var scope = this;
 
   return new Promise(function(resolve, reject) {
@@ -47,4 +45,5 @@ DataPresentor.find = function(params){
   });
 };
 
-module.exports = DataPresentor;
+module.exports = EventDataProvider;
+

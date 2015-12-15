@@ -1,0 +1,6 @@
+block content
+  p Welcome to list of broadcasts
+  ul
+    each rec in data
+      li
+        <a href=/broadcasts/#{rec.id}>#{rec.url}</a>

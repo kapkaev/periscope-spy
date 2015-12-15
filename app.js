@@ -6,12 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var streams = require('./routes/streams');
+var broadcasts = require('./routes/broadcasts');
 
 var app = express();
 
 
-var Spy = require('./libs/spy');
+//var Spy = require('./libs/spy');
 var config = require('config');
 
 // view engine setup
@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/streams', streams);
+app.use('/broadcasts', broadcasts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -62,10 +62,10 @@ app.use(function(err, req, res, next) {
 
 function startSpy(){
   var jon = 3258340504,
-    ildar = 30634464,
-      spy = new Spy(config.get('twitter'), jon);
+    ildar = 30634464
+      //spy = new Spy(config.get('twitter'), jon);
 
-      spy.start();
+      //spy.start();
 }
 
 startSpy();
