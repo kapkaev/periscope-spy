@@ -2,11 +2,12 @@ var express = require('express');
 var router = express.Router();
 var _ = require('underscore-node');
 
-var Presentor = require('../libs/data_presentor')
+var DataProvider = require('../libs/data_providers/main')
+var Presentor = require('../libs/events_presentor')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  var data = Presentor.broadcasts();
+  var data = DataProvider.broadcasts({});
 
   data.then(function(records){
     res.render('broadcast/index', { data: records });
@@ -16,10 +17,13 @@ router.get('/', function(req, res, next) {
 
 router.get('/:id', function(req, res, next) {
   var id = req.params.id;
-  var data = Presentor.broadcast(id);
+  var data = DataProvider.events({_id: id}).then(function(records){
+    var presentor = new Presentor(records);
+    return presentor.comments();
+  });
 
-  data.then(function(record){
-    res.render('broadcast/show', { data: record[0] });
+  data.then(function(records){
+    res.render('broadcast/show', { data: records });
   })
 
 });
