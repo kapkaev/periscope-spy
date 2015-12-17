@@ -1,5 +1,5 @@
 var Datastore = require('nedb'),
-    broadcastDbFile = process.cwd() + '/db/broadcast.db',
+    broadcastDbFile = process.cwd() + '/db/broadcast_copy.db',
     broadcastDb = new Datastore({ filename: broadcastDbFile, autoload: true });
 
 function BroadcastDataProvider(){

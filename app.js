@@ -11,7 +11,8 @@ var broadcasts = require('./routes/broadcasts');
 var app = express();
 
 
-//var Spy = require('./libs/spy');
+var Spy = require('./libs/spy');
+var fs = require('fs');
 var config = require('config');
 
 // view engine setup
@@ -60,12 +61,16 @@ app.use(function(err, req, res, next) {
   });
 });
 
+
+
 function startSpy(){
+  fs.createReadStream('./db/broadcast.db').pipe(fs.createWriteStream('./db/broadcast_copy.db'));
+  fs.createReadStream('./db/event.db').pipe(fs.createWriteStream('./db/event_copy.db'));
   var jon = 3258340504,
     ildar = 30634464
-      //spy = new Spy(config.get('twitter'), jon);
+      spy = new Spy(config.get('twitter'), jon);
 
-      //spy.start();
+      spy.start();
 }
 
 startSpy();

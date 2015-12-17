@@ -1,5 +1,5 @@
 var Datastore = require('nedb'),
-    EventDbFile = process.cwd() + '/db/event.db',
+    EventDbFile = process.cwd() + '/db/event_copy.db',
     eventDb = new Datastore({ filename: EventDbFile, autoload: true });
 
 function EventDataProvider(){
