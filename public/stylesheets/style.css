@@ -7,15 +7,43 @@ a {
   color: #00B7FF;
 }
 
-ul.comments{
+.inline-block{
+  display: inline-block;
+}
+
+ul.comments, ul.hearts{
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.comments li{
+.comments li, .hearts li{
   margin: 5px;
-  padding: 5px;
+  padding: 15px;
   border: 1px #E6E6E6 solid;
   border-radius: 5px;
+}
+
+li.comment{
+  background-color:#F0F7FF;
+}
+
+li.heart{
+  background-color: #FFF2F2;
+}
+
+.comment .user-avatar, .heart .user-avatar{
+  height: 30px;
+  border-radius: 30px;
+  vertical-align: middle;
+  margin-right: 10px
+}
+
+.comment .time, .heart .time{
+  font-size: 10px;
+  color: rgb(221, 221, 221);
+  float: right;
+}
+
+.comment .text, .heart .time{
 }
