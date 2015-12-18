@@ -7,10 +7,13 @@ var Presentor = require('../libs/events_presentor')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  var data = DataProvider.broadcasts({});
+  var data = DataProvider.broadcasts({join: { $gt: 0 }});
 
   data.then(function(records){
-    res.render('broadcast/index', { data: records });
+    data = _.sortBy(records, function(r){
+      return -r.join
+    })
+    res.render('broadcast/index', { data: data });
   })
 
 });

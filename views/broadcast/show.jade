@@ -14,11 +14,14 @@ block content
   p
     a(href='/broadcasts/#{broadcastId}/hearts') Hearts:
     =(counts.heart || 0)
+  p
+    a(href='/broadcasts/#{broadcastId}/joins') Joins:
+    =(counts.join || 0)
 
   block list
-    ul.comments
+    ul.events
       each rec in events
-        li(class=rec.type == 1 ? 'comment' : 'heart')
+        li.event(class=eventType(rec.type))
           div.time= new Date(rec.timestamp)
           div
             div.avatar

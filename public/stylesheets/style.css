@@ -11,13 +11,13 @@ a {
   display: inline-block;
 }
 
-ul.comments, ul.hearts{
+ul.events{
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.comments li, .hearts li{
+.events li{
   margin: 5px;
   padding: 15px;
   border: 1px #E6E6E6 solid;
@@ -32,18 +32,22 @@ li.heart{
   background-color: #FFF2F2;
 }
 
-.comment .user-avatar, .heart .user-avatar{
+li.join{
+  background-color: rgb(228, 255, 248);
+}
+
+.event .user-avatar{
   height: 30px;
   border-radius: 30px;
   vertical-align: middle;
   margin-right: 10px
 }
 
-.comment .time, .heart .time{
+.event .time{
   font-size: 10px;
   color: rgb(221, 221, 221);
   float: right;
 }
 
-.comment .text, .heart .time{
+.event .time{
 }

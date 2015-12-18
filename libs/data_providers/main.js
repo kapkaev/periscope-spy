@@ -13,10 +13,12 @@ MainDataProvider.broadcasts = function(params){
 
 MainDataProvider.events = function(broadcastParams, eventParams){
   return BroadcastDataProvider.broadcasts(broadcastParams).then(function(records){
-    return records[0].streamId;
-  }).then(function(streamId){
-    var params = _.extend({}, {streamId: streamId}, eventParams)
-    return EventDataProvider.events(params)
+    return records[0];
+  }).then(function(broadcast){
+    var params = _.extend({}, {streamId: broadcast.streamId}, eventParams)
+    return EventDataProvider.events(params).then(function(records){
+      return {broadcast: broadcast, records: records}
+    })
   });
 }
 

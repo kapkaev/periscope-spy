@@ -17,24 +17,26 @@ router.get('/:id/:type?', function(req, res, next) {
     if (req.params.type.match(/heart/)){
       types = [2]
     }
+
+    if (req.params.type.match(/join/)){
+      types = [3]
+    }
+
   }
 
-  var data = DataProvider.events({_id: id}, {type: { $in: types }}).then(function(records){
-    var presentor = new Presentor(records);
+  res.locals = {
+    eventType: req.app.locals.eventType
+  }
+
+  var data = DataProvider.events({_id: id}, {type: { $in: types }}).then(function(obj){
+    console.log(obj.records)
+    var presentor = new Presentor(obj.broadcast, obj.records);
     return presentor;
   });
 
   data.then(function(presentor){
     var events = presentor.events();
-    var counts = _.countBy(events, function(rec){
-      var type = undefined;
-      if (rec.type == 1) {
-        type = 'comment'
-      } else if (rec.type == 2) {
-        type = 'heart'
-      }
-      return type
-    })
+    var counts = presentor.broadcastCounts();
     res.render('broadcast/show', { events: events, counts: counts, broadcastId: id });
   })
 

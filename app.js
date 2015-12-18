@@ -8,12 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var broadcasts = require('./routes/broadcasts');
 
-var app = express();
-
-
-var Spy = require('./libs/spy');
-var fs = require('fs');
-var config = require('config');
+var app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -62,19 +57,40 @@ app.use(function(err, req, res, next) {
 });
 
 
-
 function startSpy(){
-  fs.createReadStream('./db/broadcast.db').pipe(fs.createWriteStream('./db/broadcast_copy.db'));
-  fs.createReadStream('./db/event.db').pipe(fs.createWriteStream('./db/event_copy.db'));
+
+  var Spy = require('./libs/spy');
+  var config = require('config');
+
   var jon = 3258340504,
     ildar = 30634464
       spy = new Spy(config.get('twitter'), jon);
-      spy.start();
+
+  global.eventDB = spy.eventDB;
+  global.broadcastDB = spy.broadcastDB;
+
+  if (process.argv.indexOf('with_spy') != -1){
+    spy.start();
+  }
 }
 
-var START_GRABBING = true;
+startSpy();
 
-if (START_GRABBING){
-  startSpy();
+
+app.locals.eventType = function(type){
+  switch (type) {
+    case 1:
+      return 'comment'
+      break;
+    case 2:
+      return 'heart'
+      break;
+    case 3:
+      return 'join'
+      break;
+    default:
+      return ''
+  }
 }
-module.exports = app;
+
+module.exports = app

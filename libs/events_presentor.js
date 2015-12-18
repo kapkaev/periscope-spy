@@ -2,8 +2,9 @@ var Promise = require("bluebird"),
     _ = Promise.promisifyAll(require('underscore-node'));
 
 
-function EventsPresentor(data){
+function EventsPresentor(broadcast, data){
   this.data = data;
+  this.broadcast = broadcast;
 }
 
 //1: "COMMENT",
@@ -31,7 +32,7 @@ EventsPresentor.prototype.joins_count = function() {
 
 EventsPresentor.prototype.events = function() {
   var data = _.filter(this.data, function(rec){
-    return [1,2].indexOf(rec.type) != -1
+    return [1,2,3].indexOf(rec.type) != -1
   })
 
   return _.sortBy(data, 'timestamp');
@@ -50,6 +51,10 @@ EventsPresentor.prototype.hearts = function() {
   return _.filter(data, function(rec){
     return rec.type == 2;
   })
+}
+
+EventsPresentor.prototype.broadcastCounts = function() {
+  return _.pick(this.broadcast, 'comment', 'join', 'heart')
 }
 
 module.exports = EventsPresentor;
