@@ -69,9 +69,12 @@ function startSpy(){
   var jon = 3258340504,
     ildar = 30634464
       spy = new Spy(config.get('twitter'), jon);
-
       spy.start();
 }
 
-startSpy();
+var START_GRABBING = true;
+
+if (START_GRABBING){
+  startSpy();
+}
 module.exports = app;
