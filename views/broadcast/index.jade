@@ -1,8 +1,10 @@
 block content
   p Welcome to list of broadcasts
-  ul
-    each rec in data
-      li
+  small Show broadcasts that have more that 30 people watching it
+  each batch in data
+    h2=batch.time
+    each rec in batch.data
+      div
         <a href=/broadcasts/#{rec._id}>#{rec.url}</a>
 
         👥#{rec.join}

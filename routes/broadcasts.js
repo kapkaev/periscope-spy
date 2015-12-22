@@ -7,7 +7,7 @@ var Presentor = require('../libs/events_presentor')
 
 router.get('/:id/:type?', function(req, res, next) {
   var id = req.params.id;
-  var types = [1,2];
+  var types = [1,2,3];
 
   if (req.params.type){
     if (req.params.type.match(/comment/)){
@@ -29,7 +29,6 @@ router.get('/:id/:type?', function(req, res, next) {
   }
 
   var data = DataProvider.events({_id: id}, {type: { $in: types }}).then(function(obj){
-    console.log(obj.records)
     var presentor = new Presentor(obj.broadcast, obj.records);
     return presentor;
   });
@@ -37,7 +36,7 @@ router.get('/:id/:type?', function(req, res, next) {
   data.then(function(presentor){
     var events = presentor.events();
     var counts = presentor.broadcastCounts();
-    res.render('broadcast/show', { events: events, counts: counts, broadcastId: id });
+    res.render('broadcast/show', { events: events, counts: counts, broadcast: presentor.broadcast });
   })
 
 });

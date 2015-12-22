@@ -70,6 +70,7 @@ function startSpy(){
   global.broadcastDB = spy.broadcastDB;
 
   if (process.argv.indexOf('with_spy') != -1){
+    console.log("Starting with SPY mode")
     spy.start();
   }
 }

@@ -4,19 +4,19 @@ block content
   a(href='/') Go back
 
   p Welcome to list of broadcasts &nbsp
-    a(href='/broadcasts/#{broadcastId}') #{broadcastId}
+    a(href=broadcast.url) #{broadcast.url}
 
   p
-    a(href='/broadcasts/#{broadcastId}') All
+    a(href='/broadcasts/#{broadcast._id}') All
+
   p
-    a(href='/broadcasts/#{broadcastId}/comments') Comments:
-    =(counts.comment || 0)
-  p
-    a(href='/broadcasts/#{broadcastId}/hearts') Hearts:
-    =(counts.heart || 0)
-  p
-    a(href='/broadcasts/#{broadcastId}/joins') Joins:
+    a(href='/broadcasts/#{broadcast._id}/joins') Joins:
     =(counts.join || 0)
+
+  p
+    a(href='/broadcasts/#{broadcast._id}/comments') Comments:
+    =(counts.comment || 0)
+  p Hearts: #{counts.heart || 0}
 
   block list
     ul.events
@@ -26,7 +26,7 @@ block content
           div
             div.avatar
               a(href='http://twitter.com/#{rec.username}')
-                img.user-avatar(src='/images/twitter-egg-icon.jpg')
+                img.user-avatar(src=rec.profileImageURL||'/images/twitter-egg-icon.jpg')
                 div.inline-block
                   =rec.displayName
                 if rec.username
