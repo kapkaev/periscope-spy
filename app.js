@@ -62,8 +62,7 @@ function startSpy(){
   var Spy = require('./libs/spy');
   var config = require('config');
 
-  var jon = 3258340504,
-    ildar = 30634464
+  var jon = 3258340503,
       spy = new Spy(config.get('twitter'), jon);
 
   global.eventDB = spy.eventDB;
